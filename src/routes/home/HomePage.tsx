@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-8">
@@ -8,21 +10,21 @@ export const HomePage: React.FC = () => {
         </p>
 
         <nav className="space-y-4">
-          <a
-            href="/shop"
+          <Link
+            to="/shop"
             className="block p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all"
           >
             <h2 className="text-xl font-semibold text-gray-900 mb-2">Product Listing Page</h2>
             <p className="text-gray-600 text-sm">E-commerce shop with filters, product grid, and navigation</p>
-          </a>
+          </Link>
 
-          <a
-            href="/dashboard"
+          <Link
+            to="/dashboard"
             className="block p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all"
           >
             <h2 className="text-xl font-semibold text-gray-900 mb-2">SaaS Dashboard</h2>
             <p className="text-gray-600 text-sm">Analytics dashboard with charts, stats, and recent orders</p>
-          </a>
+          </Link>
         </nav>
       </div>
     </div>
