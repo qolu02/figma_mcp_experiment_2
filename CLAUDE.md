@@ -76,58 +76,65 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products }) => { };
 
 ```
 src/
-├── routes/                 # Route-specific components (isolated per route)
+├── routes/                 # ALL routes (complete isolation)
+│   ├── home/               # Navigation hub route
+│   │   └── HomePage.tsx    # Simple page - no components/ needed
 │   ├── shop/
 │   │   ├── components/
-│   │   │   ├── atoms/     # (route-specific atoms if needed)
-│   │   │   ├── molecules/ # ProductCard, SearchBar, NavigationPillList, HeaderAuth
+│   │   │   ├── molecules/ # ProductCard, SearchBar, HeaderAuth
 │   │   │   └── organisms/ # Header, FilterMenu, ProductGrid, Footer
 │   │   ├── types/
 │   │   │   └── product.ts # Route-specific types
 │   │   └── ShopPage.tsx   # Page component
 │   └── dashboard/
 │       ├── components/
-│       │   ├── atoms/     # (route-specific atoms if needed)
-│       │   ├── molecules/ # StatCard, DonutChart, BarChart, etc.
+│       │   ├── molecules/ # StatCard, DonutChart, BarChart
 │       │   └── organisms/ # Sidebar, TopNav, RecentOrders
 │       ├── types/
 │       │   └── order.ts   # Route-specific types
 │       └── DashboardPage.tsx
 ├── components/
-│   ├── atoms/              # Shared basic UI elements
-│   │   ├── Button.tsx      # Shadcn wrappers
-│   │   ├── Input.tsx
-│   │   ├── Checkbox.tsx
-│   │   └── Slider.tsx
-│   └── ui/                 # Shadcn components (auto-generated)
-├── pages/                  # Shared/navigation pages
-│   └── HomePage.tsx        # Navigation hub
-├── hooks/                  # Custom React hooks (if needed)
+│   └── ui/                 # Shadcn ONLY (auto-generated, required)
 ├── lib/                    # Utilities (utils.ts, cn function)
 ├── App.tsx                 # Router configuration
 └── main.tsx               # Entry point
 ```
 
 ### File Organization Rules
-- **Each route is isolated**: Components, types, and page live in `routes/[route-name]/`
-- **Shared atoms only**: Common wrappers for Shadcn components live in `components/atoms/`
+- **Pure route isolation**: Each route is completely self-contained with components, types, and page in `routes/[route-name]/`
+- **No shared components**: Import Shadcn components directly from `@/components/ui/` (no wrappers needed)
+- **Only create what you need**:
+  - Simple pages (like home) → Just the page file, no components/
+  - Complex pages → Create components/ and types/ as needed
+  - Custom hooks → Create in route-specific hooks/ directory (not top-level)
+  - Atoms → Only if route needs custom wrappers (otherwise import Shadcn directly)
 - **Route imports**: Use relative imports within route (`./components/molecules/ProductCard`)
-- **Shared atoms**: Use @ alias (`@/components/atoms/Button`)
+- **Shadcn imports**: Use @ alias to import directly (`@/components/ui/button`)
 - **Single component export** → Flat file
 - **Multiple related components** → Folder with index.ts
 
 ```typescript
 // Route-specific component: routes/shop/components/molecules/ProductCard.tsx
-import type { Product } from '../../types/product'; // Relative import
-import { Button } from '@/components/atoms/Button'; // @ alias for shared
+import type { Product } from '../../types/product'; // Relative import within route
+import { Button } from '@/components/ui/button';     // Direct Shadcn import
 
 export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   // Implementation
 };
 
-// Shared atom: components/atoms/Button.tsx
-export interface ButtonProps extends React.ComponentProps<typeof ShadcnButton> {}
-export const Button: React.FC<ButtonProps> = (props) => <ShadcnButton {...props} />;
+// If route needs custom hook, create route-specific hooks/:
+// routes/shop/hooks/useProductFilter.ts
+export const useProductFilter = () => {
+  // Route-specific hook logic
+};
+
+// If route needs custom wrapper, create route-specific atoms/:
+// routes/shop/components/atoms/ShopButton.tsx
+import { Button as ShadcnButton } from '@/components/ui/button';
+
+export const ShopButton: React.FC = (props) => (
+  <ShadcnButton className="bg-shop-primary" {...props} />
+);
 ```
 
 ### Path Aliases (Required)
@@ -156,21 +163,29 @@ export default defineConfig({
 import { Header } from './components/organisms/Header';
 import type { Product } from './types/product';
 
-// Shared components - @ alias
-import { Button } from '@/components/atoms/Button';
+// Shadcn components - @ alias
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 ```
 
 ### Routing Structure
-Each Figma design maps to an isolated route directory. User provides Figma URL + route path.
+**Every page is a route** - including the navigation hub. All routes live in `routes/[route-name]/` with complete isolation.
+
+**Special routes:**
+- `routes/home/HomePage.tsx` - Navigation hub with links to all implemented designs (served at `/`)
+
+**Figma design routes:**
+- Each Figma design maps to its own route directory (e.g., `routes/shop/`, `routes/dashboard/`)
+- User provides Figma URL + route path (e.g., "Implement [URL] at /shop")
 
 **Workflow:**
-1. Initial setup: Create HomePage at `/` with navigation links to all implemented designs
+1. Initial setup: Create `routes/home/HomePage.tsx` at `/` with navigation links
 2. For each new design: User specifies route (e.g., "Implement [URL] at /shop")
 3. Create route directory with isolated components/types
 4. Create page component, add route to App.tsx, add link to HomePage
 
-**Benefits of route isolation:**
+**Benefits of complete route isolation:**
+- Zero special cases - every page follows the same pattern
 - Clear separation between different Figma designs
 - No component naming conflicts
 - Easy to understand what belongs to which route
@@ -304,18 +319,27 @@ export default {
 **Common fonts:** Inter, Roboto, Poppins, Open Sans, Montserrat
 
 ### Shadcn Integration
-- **Always wrap Shadcn components in `atoms/`** - Never import from `components/ui/` in pages/organisms
-- Install: `npx shadcn@latest add [component]`, then create wrapper
-- Extend props: `interface Props extends React.ComponentProps<typeof ShadcnComponent>`
+- **Import Shadcn components directly** from `@/components/ui/` in all route components
+- Install: `npx shadcn@latest add [component]`
+- No wrappers needed - use Shadcn components as-is
+- If a route needs custom styling, create route-specific atoms in `routes/[route]/components/atoms/`
 
 ```typescript
-// atoms/Button/Button.tsx
-import { Button as ShadcnButton } from '@/components/ui/button';
-interface ButtonProps extends React.ComponentProps<typeof ShadcnButton> {}
-export const Button: React.FC<ButtonProps> = (props) => <ShadcnButton {...props} />;
+// Direct import - preferred approach
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
-// atoms/Button/index.ts
-export { Button } from './Button';
+export const MyComponent = () => (
+  <Button variant="outline">Click me</Button>
+);
+
+// Route-specific wrapper - only if needed
+// routes/shop/components/atoms/ShopButton.tsx
+import { Button as ShadcnButton } from '@/components/ui/button';
+
+export const ShopButton: React.FC = (props) => (
+  <ShadcnButton className="bg-brand-primary hover:bg-brand-secondary" {...props} />
+);
 ```
 
 ### Icon Handling
@@ -445,12 +469,12 @@ mcp__figma__get_metadata({ fileKey, nodeId })
 - Identify which Shadcn components to use
 
 ### Step 2: Implement Bottom-Up
-1. Install required Shadcn components
-2. Create atom wrappers for each Shadcn component
-3. Build molecules (compose atoms)
-4. Build organisms (compose molecules/atoms, accept data as props)
-5. Assemble page (define mock data, compose organisms with props)
-6. Add route to App.tsx
+1. Install required Shadcn components (`npx shadcn@latest add [component]`)
+2. Build molecules (compose Shadcn components directly)
+3. Build organisms (compose molecules/Shadcn components, accept data as props)
+4. Assemble page (define mock data, compose organisms with props)
+5. Add route to App.tsx
+6. Add link to HomePage (routes/home/HomePage.tsx)
 
 ### Step 3: Polish
 - Apply responsive patterns (see below)

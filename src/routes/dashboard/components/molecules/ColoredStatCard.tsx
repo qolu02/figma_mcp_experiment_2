@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { TimeWindowDropdown } from '../atoms/TimeWindowDropdown';
 
 interface ColoredStatCardProps {
   label: string;
@@ -29,10 +29,11 @@ export const ColoredStatCard: React.FC<ColoredStatCardProps> = ({
           <span className={`text-sm truncate ${isBlue ? 'text-white/80' : 'text-gray-500'}`}>{label}</span>
         </div>
         {dropdown && (
-          <div className="flex items-center gap-1 flex-shrink-0">
-            <span className={`text-xs whitespace-nowrap ${isBlue ? 'text-white/70' : 'text-gray-400'}`}>{dropdown}</span>
-            <ChevronDownIcon className={`w-3 h-3 ${isBlue ? 'text-white/70' : 'text-gray-400'}`} />
-          </div>
+          <TimeWindowDropdown
+            defaultValue={dropdown}
+            variant="days"
+            textClassName={isBlue ? 'text-xs text-white/70' : 'text-xs text-gray-400'}
+          />
         )}
       </div>
       <div className="flex items-baseline gap-2 min-w-0">

@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { Input } from '@/components/atoms/Input';
+import { Input } from '@/components/ui/input';
 
 interface SearchBarProps {
   value: string;

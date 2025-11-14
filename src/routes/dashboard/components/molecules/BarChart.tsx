@@ -1,5 +1,12 @@
 import { BarChart as RechartsBar, Bar, XAxis, YAxis, ResponsiveContainer, CartesianGrid } from 'recharts';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { TimeWindowDropdown } from '../atoms/TimeWindowDropdown';
 
 interface BarChartProps {
   data: Array<{ name: string; value: number }>;
@@ -13,15 +20,21 @@ export const BarChart: React.FC<BarChartProps> = ({ data, title = 'Summary', dro
       <div className="flex items-center justify-between mb-6 min-w-0 gap-2">
         <div className="flex items-center gap-3 min-w-0">
           <h3 className="text-base font-semibold text-gray-900 truncate">{title}</h3>
-          <select className="text-sm text-gray-600 bg-transparent border-none outline-none cursor-pointer flex-shrink-0">
-            <option>Sales</option>
-            <option>Orders</option>
-          </select>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 px-2 py-1 rounded transition-colors flex items-center gap-1">
+                Sales
+                <ChevronDownIcon className="w-3 h-3" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem>Sales</DropdownMenuItem>
+              <DropdownMenuItem>Orders</DropdownMenuItem>
+              <DropdownMenuItem>Revenue</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <span className="text-xs text-gray-400 whitespace-nowrap">{dropdown}</span>
-          <ChevronDownIcon className="w-3 h-3 text-gray-400" />
-        </div>
+        <TimeWindowDropdown defaultValue={dropdown} variant="days" />
       </div>
 
       <div className="w-full h-64">

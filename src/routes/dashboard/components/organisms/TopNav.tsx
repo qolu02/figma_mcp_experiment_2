@@ -1,4 +1,10 @@
 import { BellIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface TopNavProps {
   title?: string;
@@ -13,10 +19,19 @@ export const TopNav: React.FC<TopNavProps> = ({ title = 'Dashboard', shopName = 
 
         <div className="flex items-center gap-4 flex-shrink-0">
           {/* Shop Selector */}
-          <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors min-w-0">
-            <span className="text-sm font-medium text-gray-700 truncate">{shopName}</span>
-            <ChevronDownIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors min-w-0">
+                <span className="text-sm font-medium text-gray-700 truncate">{shopName}</span>
+                <ChevronDownIcon className="w-4 h-4 text-gray-500 flex-shrink-0" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Nanny's Shop</DropdownMenuItem>
+              <DropdownMenuItem>Tech Store</DropdownMenuItem>
+              <DropdownMenuItem>Fashion Boutique</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Notifications */}
           <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">

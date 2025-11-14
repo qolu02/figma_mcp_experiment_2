@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms/Button';
+import { Button } from '@/components/ui/button';
 
 export const HeaderAuth: React.FC = () => {
   const handleSignIn = () => {

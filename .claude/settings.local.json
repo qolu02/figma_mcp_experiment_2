@@ -3,7 +3,11 @@
     "allow": [
       "mcp__figma__get_screenshot",
       "mcp__figma__get_metadata",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(tree:*)",
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(npx shadcn@latest add:*)"
     ],
     "deny": [],
     "ask": []

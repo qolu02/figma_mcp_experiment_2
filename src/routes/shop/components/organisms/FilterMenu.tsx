@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Checkbox } from '@/components/atoms/Checkbox';
-import { Slider } from '@/components/atoms/Slider';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Slider } from '@/components/ui/slider';
 
 export const FilterMenu: React.FC = () => {
   const [keywords, setKeywords] = useState(['Spring', 'Smart', 'Modern']);

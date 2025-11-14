@@ -1,5 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { TimeWindowDropdown } from '../atoms/TimeWindowDropdown';
 
 interface DonutChartProps {
   data: Array<{ name: string; value: number; color: string }>;
@@ -10,10 +10,7 @@ export const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
     <div className="bg-white border border-gray-200 rounded-lg p-6">
       <div className="flex items-center justify-between mb-4 min-w-0 gap-2">
         <h3 className="text-base font-semibold text-gray-900 truncate">Marketing</h3>
-        <div className="flex items-center gap-1 flex-shrink-0">
-          <span className="text-xs text-gray-400 whitespace-nowrap">This Week</span>
-          <ChevronDownIcon className="w-3 h-3 text-gray-400" />
-        </div>
+        <TimeWindowDropdown defaultValue="This Week" variant="weeks" />
       </div>
 
       <div className="flex flex-col md:flex-row items-center gap-6">
