@@ -48,9 +48,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem = 'dashboard' }) =>
 
             return (
               <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors min-w-0 ${
+                <button
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors min-w-0 ${
                     isActive
                       ? 'bg-indigo-500 text-white'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -67,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem = 'dashboard' }) =>
                       {item.badge}
                     </span>
                   )}
-                </a>
+                </button>
               </li>
             );
           })}
@@ -87,7 +86,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeItem = 'dashboard' }) =>
             <span className="text-sm font-medium text-gray-900 truncate">Free Gift Awaits You!</span>
           </div>
           <p className="text-xs text-gray-600 mb-3 truncate">Upgrade your account</p>
-          <button className="text-xs text-indigo-600 hover:underline truncate">
+          <button className="text-xs text-indigo-600 hover:underline truncate w-full text-left">
             Upgrade your account →
           </button>
         </div>

@@ -25,6 +25,22 @@ export const HomePage: React.FC = () => {
             <h2 className="text-xl font-semibold text-gray-900 mb-2">SaaS Dashboard</h2>
             <p className="text-gray-600 text-sm">Analytics dashboard with charts, stats, and recent orders</p>
           </Link>
+
+          <Link
+            to="/art"
+            className="block p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Figma Kit - Cover Page</h2>
+            <p className="text-gray-600 text-sm">Hero section with gradient background, badge, and featured imagery</p>
+          </Link>
+
+          <Link
+            to="/about"
+            className="block p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">World Peas - About Page</h2>
+            <p className="text-gray-600 text-sm">Organic food company landing page with clean typography and natural aesthetic</p>
+          </Link>
         </nav>
       </div>
     </div>
