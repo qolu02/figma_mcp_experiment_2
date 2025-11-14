@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button';
+
 export const HeroSection: React.FC = () => {
   return (
     <section className="w-full bg-white py-16 md:py-20 lg:py-24">
@@ -15,9 +17,9 @@ export const HeroSection: React.FC = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <button className="bg-[#426b1f] text-white px-8 h-16 rounded-lg font-inter font-semibold text-xl hover:bg-[#355717] transition-colors">
+          <Button className="bg-[#426b1f] text-white px-8 h-16 rounded-lg font-inter font-semibold text-xl hover:bg-[#355717]">
             Browse our shop
-          </button>
+          </Button>
         </div>
       </div>
     </section>

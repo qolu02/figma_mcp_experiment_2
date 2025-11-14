@@ -11,6 +11,7 @@ This project demonstrates Claude Code's ability to transpose Figma designs into 
 - Tailwind CSS
 - Shadcn UI
 - React Router
+- Recharts
 
 **Objective:** Demonstrate agentic coding workflows: observe Figma designs via MCP, decompose into semantic component hierarchies, and implement with best practices.
 

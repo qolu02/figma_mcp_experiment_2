@@ -41,6 +41,14 @@ export const HomePage: React.FC = () => {
             <h2 className="text-xl font-semibold text-gray-900 mb-2">World Peas - About Page</h2>
             <p className="text-gray-600 text-sm">Organic food company landing page with clean typography and natural aesthetic</p>
           </Link>
+
+          <Link
+            to="/overview"
+            className="block p-6 bg-white border border-gray-200 rounded-lg hover:border-gray-300 hover:shadow-sm transition-all"
+          >
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Financial Advisor Dashboard</h2>
+            <p className="text-gray-600 text-sm">Dark theme client overview with profile, tasks, and recommendations</p>
+          </Link>
         </nav>
       </div>
     </div>
