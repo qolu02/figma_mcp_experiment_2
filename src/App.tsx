@@ -5,7 +5,7 @@ import { DashboardPage } from '@/routes/dashboard/DashboardPage';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/figma_mcp_experiment_2">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
